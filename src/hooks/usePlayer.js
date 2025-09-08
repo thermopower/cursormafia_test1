@@ -5,7 +5,7 @@ function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
 export default function usePlayer({ width, height }) {
   const ref = useRef({
     pos: { x: width / 2, y: height / 2 },
-    speed: 220,
+    speed: 200,
     level: 1,
     xp: 0,
     fireRate: 2, // per second
@@ -43,7 +43,7 @@ export default function usePlayer({ width, height }) {
       }
     },
     reset: () => {
-      ref.current = { pos: { x: width / 2, y: height / 2 }, speed: 220, level: 1, xp: 0, fireRate: 2, damage: 1, projectileSpeed: 420, projectileCount: 1, lastShotAt: 0 };
+      ref.current = { pos: { x: width / 2, y: height / 2 }, speed: 200, level: 1, xp: 0, fireRate: 2, damage: 1, projectileSpeed: 420, projectileCount: 1, lastShotAt: 0 };
     },
   }), [height, width]);
 }

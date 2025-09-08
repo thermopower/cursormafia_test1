@@ -15,7 +15,7 @@ export default function GameCanvas({ width, height, cssScale, state }) {
 
   useEffect(() => {
     const c = canvasRef.current;
-    const dpr = window.devicePixelRatio || 1;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
     c.width = Math.floor(width * cssScale * dpr);
     c.height = Math.floor(height * cssScale * dpr);
     c.style.width = `${Math.floor(width * cssScale)}px`;

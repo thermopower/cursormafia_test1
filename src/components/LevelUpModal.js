@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function LevelUpModal({ options, onChoose }) {
   return (
-    <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(2px)', pointerEvents: 'auto' }}>
+    <div onPointerDown={(e) => e.stopPropagation()} onPointerUp={(e) => e.stopPropagation()} style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(2px)', pointerEvents: 'auto' }}>
       <div style={{ background: '#121212', color: '#e0e0e0', padding: 16, borderRadius: 10, border: '1px solid #333', minWidth: 320 }}>
         <div style={{ fontSize: 18, fontWeight: 700, marginBottom: 12 }}>Level Up</div>
         <div style={{ display: 'grid', gap: 8 }}>

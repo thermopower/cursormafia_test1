@@ -38,7 +38,7 @@ export default function useGameLoop({ width, height, inputVector }) {
     const vec = inputVector || { x: 0, y: 0 }; player.move(vec.x, vec.y, dt);
 
     // spawns + steering
-    enemies.spawnIfDue(t); enemies.maybeSpawnBoss(); enemies.steerTowards(player.get().pos, dt);
+    enemies.spawnIfDue(state.elapsed, player.get().pos); enemies.maybeSpawnBoss(state.elapsed); enemies.steerTowards(player.get().pos, dt);
 
     // auto fire
     if (player.canShoot(t)) {
@@ -55,7 +55,7 @@ export default function useGameLoop({ width, height, inputVector }) {
     // projectile vs enemy
     for (const p of [...projectiles.list()]) {
       for (const e of [...enemies.list()]) {
-        const hitR = (e.boss ? 16 : 10) + 4; // rough radii
+        const hitR = (e.boss ? 24 : 16) + 4; // radii per PRD
         if (dist(p.pos, e.pos) <= hitR) {
           const xp = enemies.hit(e.id, p.damage);
           projectiles.remove(p.id);
@@ -70,7 +70,7 @@ export default function useGameLoop({ width, height, inputVector }) {
 
     // player vs enemy -> instant game over
     for (const e of enemies.list()) {
-      const r = (e.boss ? 16 : 10) + 10; if (dist(player.get().pos, e.pos) <= r) { setState((s) => ({ ...s, running: false, gameOver: true })); return; }
+      const r = (e.boss ? 24 : 16) + 12; if (dist(player.get().pos, e.pos) <= r) { setState((s) => ({ ...s, running: false, gameOver: true })); return; }
     }
 
     // level up check

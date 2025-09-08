@@ -12,13 +12,15 @@ export default function useProjectiles() {
       for (let i = 0; i < n; i++) {
         const t = n === 1 ? 0 : i / (n - 1);
         const ang = base - spread / 2 + spread * t;
-        listRef.current.push({ id: `p_${Math.random().toString(36).slice(2)}`, pos: { ...origin }, vel: { x: Math.cos(ang) * speed, y: Math.sin(ang) * speed }, damage });
+        listRef.current.push({ id: `p_${Math.random().toString(36).slice(2)}`, pos: { ...origin }, vel: { x: Math.cos(ang) * speed, y: Math.sin(ang) * speed }, damage, ttl: 1.8 });
       }
     },
     step: (dt, bounds) => {
       listRef.current = listRef.current.filter(p => {
         p.pos.x += p.vel.x * dt; p.pos.y += p.vel.y * dt;
-        return p.pos.x >= -30 && p.pos.x <= bounds.width + 30 && p.pos.y >= -30 && p.pos.y <= bounds.height + 30;
+        p.ttl -= dt;
+        const inBounds = p.pos.x >= -30 && p.pos.x <= bounds.width + 30 && p.pos.y >= -30 && p.pos.y <= bounds.height + 30;
+        return p.ttl > 0 && inBounds;
       });
     },
     remove: (id) => { const i = listRef.current.findIndex(p => p.id === id); if (i >= 0) listRef.current.splice(i, 1); },
